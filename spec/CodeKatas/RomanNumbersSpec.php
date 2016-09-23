@@ -4,7 +4,6 @@ namespace spec\CodeKatas;
 
 use CodeKatas\RomanNumbers;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 /**
  * Class RomanNumbersSpec
