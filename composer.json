@@ -1,0 +1,19 @@
+{
+    "name": "leiwang/code-katas",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Lei Wang",
+            "email": "leiwgz@gmail.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+      "codeclimate/php-test-reporter": "^0.3.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "CodeKatas\\": "src/CodeKatas"
+        }
+    }
+}
