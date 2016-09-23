@@ -7,9 +7,6 @@
             "email": "leiwgz@gmail.com"
         }
     ],
-    "config": {
-        "bin-dir": "bin"
-    },
     "require": {},
     "require-dev": {
         "codeclimate/php-test-reporter": "^0.3.2",
