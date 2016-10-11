@@ -31,33 +31,33 @@ class PotterSpec extends ObjectBehavior
         }
     }
 
-    function it_calc_with_no_discounts()
+    public function it_calc_with_no_discounts()
     {
         $this->calc([1])->shouldBe(8);
         $this->calc([1, 1])->shouldBe(16);
         $this->calc([1, 1, 1])->shouldBe(24);
     }
 
-    function it_calc_without_buying_the_same_book()
+    public function it_calc_without_buying_the_same_book()
     {
-        $this->calc([1, 2])->shouldBe(15.2);
-        $this->calc([1, 2, 3])->shouldBe(21.6);
-        $this->calc([1, 2, 3, 4])->shouldBe(25.6);
-        $this->calc([1, 2, 3, 4, 5])->shouldBe(30.0);
+        $this->calc([1, 2])->shouldBe(15.2); // 8 * 2 * .95
+        $this->calc([1, 2, 3])->shouldBe(21.6); // 8 * 3 * .9
+        $this->calc([1, 2, 3, 4])->shouldBe(25.6); // 8 * 4 * .8
+        $this->calc([1, 2, 3, 4, 5])->shouldBe(30.0); // 8 * 5 * .75
     }
 
-    function it_calc_with_same_books()
+    public function it_calc_with_same_books()
     {
-        $this->calc([1, 2, 1])->shouldBe(23.2);
-        $this->calc([1, 2, 3, 1, 2])->shouldBe(36.8);
-        $this->calc([1, 2, 3, 1, 2, 1, 1])->shouldBe(52.8);
-        $this->calc([1, 2, 3, 4, 5, 1])->shouldBe(38.0);
-        $this->calc([1, 2, 3, 4, 5, 1, 2])->shouldBe(45.2);
+        $this->calc([1, 2, 1])->shouldBe(23.2); // 15.2 + 8
+        $this->calc([1, 2, 3, 1, 2])->shouldBe(36.8); // 21.6 + 15.2
+        $this->calc([1, 2, 3, 1, 2, 1, 1])->shouldBe(52.8); // 21.6 + 15.2 + 8 + 8
+        $this->calc([1, 2, 3, 4, 5, 1])->shouldBe(38.0); // 30 + 8
+        $this->calc([1, 2, 3, 4, 5, 1, 2])->shouldBe(45.2); // 30 + 15.2
     }
 
-    function it_calc_with_magic_combinations()
+    public function it_calc_with_magic_combinations()
     {
-        $this->calc([1,2,3,4,5,1,2,3])->shouldBe(51.2);
-        $this->calc([1,2,3,4,5,1,2,3,4,5,1,2,3])->shouldBe(81.2);
+        $this->calc([1,2,3,4,5,1,2,3])->shouldBe(51.2); // not 51.6
+        $this->calc([1,2,3,4,5,1,2,3,4,5,1,2,3])->shouldBe(81.2); // not 81.6
     }
 }
