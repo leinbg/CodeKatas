@@ -18,7 +18,7 @@ class Potter
     /**
      *
      */
-    const BOOK_SERIES_LENGTH = 5;
+    const BOOK_SERIE = 5;
 
     /**
      * @var array
@@ -34,16 +34,25 @@ class Potter
     {
         // 1 validate
         $this->validate($books);
-
-        // 2 calc bookset
         $cost = 0;
-        $set = array_unique($books);
-        $cost += $this->calcBookSet($set);
 
-        // 3. calc rest
-        $diff = array_diff_assoc($books, $set);
-        if ($this->hasDiff($diff)) {
-            $cost += $this->calc($diff);
+        // 2 calc special bookset (2*1, 2*2, 2*3, 1*4, 1*5)
+        $restAfterSpecialCheck = $this->getRestAfterSpecialSetCheck($books);
+        if (is_array($restAfterSpecialCheck)) {
+            $cost += $this->calcSpecialSet();
+            $books = $restAfterSpecialCheck;
+        }
+
+        // 3 calc bookset
+        if (is_array($books) && !empty($books)) {
+            $set = array_unique($books);
+            $cost += $this->calcBookSet($set);
+
+            // 4. calc rest
+            $diff = array_diff_assoc($books, $set);
+            if ($this->hasDiff($diff)) {
+                $cost += $this->calc($diff);
+            }
         }
 
         return $cost;
@@ -93,5 +102,36 @@ class Potter
     protected function getDiscount($count)
     {
         return $this->discountMapping[$count - 1];
+    }
+
+    /**
+     * @param $books
+     *
+     * @return array|bool
+     */
+    protected function getRestAfterSpecialSetCheck($books)
+    {
+        $set = array_unique($books);
+        if (count($set) != self::BOOK_SERIE) {
+            return false;
+        }
+
+        $diff = array_diff_assoc($books, $set);
+        $setOfDiff = array_unique($diff);
+        if (count($setOfDiff) != self::BOOK_SERIE - 2) {
+            return false;
+        }
+
+        return array_diff_assoc($diff, $setOfDiff);
+    }
+
+    /**
+     * @return int
+     */
+    protected function calcSpecialSet()
+    {
+        $cost4Books = self::SINGLE_PRICE * (self::BOOK_SERIE - 1) *$this->getDiscount(self::BOOK_SERIE - 1);
+
+        return 2 * $cost4Books;
     }
 }
