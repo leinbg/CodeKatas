@@ -112,20 +112,19 @@ class Potter
      *
      * @return array|bool
      */
-    protected function getRestAfterSpecialSetCheck($books)
+    protected function getRestAfterSpecialSetCheck($books, $count = self::BOOK_SERIE, $recursive = true)
     {
         $set = array_unique($books);
-        if (count($set) != self::BOOK_SERIE) {
+        if (count($set) != $count) {
             return false;
         }
 
         $diff = array_diff_assoc($books, $set);
-        $setOfDiff = array_unique($diff);
-        if (count($setOfDiff) != self::BOOK_SERIE - 2) {
-            return false;
+        if ($recursive) {
+            $diff = $this->getRestAfterSpecialSetCheck($diff, self::BOOK_SERIE - 2, false);
         }
 
-        return array_diff_assoc($diff, $setOfDiff);
+        return $diff;
     }
 
     /**
