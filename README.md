@@ -7,7 +7,15 @@ Code Katas
 done
 ------
 - Roman Numbers
-    - algorithm convert numbers to RomanNumber 
+    - algorithm convert numbers to RomanNumber
+- Potter
+    - series of 5 books, there are discounts when buying more than one different books
+        - 1 book, 8 Euro
+        - 2 book, 95%
+        - 3 book, 90%
+        - 4 book, 80%
+        - 5 book, 75%
+    try to find out the best purchase strategy in different situations
 
 
 todo
