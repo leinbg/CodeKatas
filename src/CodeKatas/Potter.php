@@ -37,18 +37,19 @@ class Potter
         $cost = 0;
 
         // 2 calc special bookset (2*1, 2*2, 2*3, 1*4, 1*5)
+        // @todo: need a better solution for this speical situation
         $restAfterSpecialCheck = $this->getRestAfterSpecialSetCheck($books);
         if (is_array($restAfterSpecialCheck)) {
             $cost += $this->calcSpecialSet();
             $books = $restAfterSpecialCheck;
         }
 
-        // 3 calc bookset
+        // 3 calc normal bookset
         if (is_array($books) && !empty($books)) {
             $set = array_unique($books);
             $cost += $this->calcBookSet($set);
 
-            // 4. calc rest
+            // 4. calc rest recursively
             $diff = array_diff_assoc($books, $set);
             if ($this->hasDiff($diff)) {
                 $cost += $this->calc($diff);
@@ -105,7 +106,9 @@ class Potter
     }
 
     /**
-     * @param $books
+     * @param      $books
+     * @param int  $count
+     * @param bool $recursive
      *
      * @return array|bool
      */
