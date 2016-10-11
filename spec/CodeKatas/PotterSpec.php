@@ -57,7 +57,6 @@ class PotterSpec extends ObjectBehavior
 
     function it_calc_with_magic_combinations()
     {
-        $books = [1,2,3,4,5,1,2,3];
-        $this->calc($books)->shouldBe(51.2);
+        $this->calc([1,2,3,4,5,1,2,3])->shouldBe(51.2);
     }
 }
