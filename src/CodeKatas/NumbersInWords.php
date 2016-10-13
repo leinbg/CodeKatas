@@ -37,11 +37,11 @@ class NumbersInWords
     public function convert($number)
     {
 
-        $aRest = $this->iterateIntegerPart($number);
-        $words = $aRest['words'];
-        $number = $aRest['number'];
-        if ($number != 0) {
-            $words .= $this->iterateDecimalPart($number);
+        $integerPart = $this->iterateIntegerPart($number);
+        $words = $integerPart['words'];
+        $restNumber = $integerPart['number'];
+        if ($restNumber != 0) {
+            $words .= $this->iterateDecimalPart($restNumber);
         }
         $words = $this->applySpecialRules($words);
 
@@ -74,6 +74,11 @@ class NumbersInWords
         ];
     }
 
+    /**
+     * @param $number
+     *
+     * @return string
+     */
     protected function iterateDecimalPart($number)
     {
         $word = ' dian';
