@@ -36,23 +36,43 @@ class NumbersInWords
      */
     public function convert($number)
     {
-        $words = '';
 
+        $aRest = $this->iterateIntegerPart($number);
+        $words = $aRest['words'];
+        $words = $this->applySpecialRules($words);
+
+        return $words;
+    }
+
+    /**
+     * @param $number
+     *
+     * @return array
+     */
+    protected function iterateIntegerPart($number)
+    {
+        $words = '';
         foreach ($this->units as $unitInt => $unitWord) {
             if ($number > $unitInt) {
                 $unitDigit = (int) floor($number / $unitInt);
                 $words .= $this->getMappingOf($unitDigit);
                 $words .= $this->getUnitBy($unitWord);
-
                 $number = $number - $unitDigit * $unitInt;
             }
         }
 
         $words .= $this->getMappingOf($number);
+        $number = $number - floor($number);
 
-        $words = $this->applySpecialRules($words);
+        return [
+            'words' => $words,
+            'number' => $number,
+        ];
+    }
 
-        return $words;
+    protected function iterateDecimalPart()
+    {
+
     }
 
     /**
