@@ -82,40 +82,27 @@ class NumbersInWords
     protected function iterateDecimalPart($number)
     {
         $word = ' dian';
-        $string = number_format($number, 2, '.', '');
-        $decimalString = substr($string, strrpos($string, '.') + 1);
-        $decimalArray = str_split($decimalString);
+        $decimalArray = $this->convertFloatToDigitArray($number);
 
         foreach ($decimalArray as $digit) {
-            $word .= ' ' . $this->mapping[$digit];
+            $word .= ' ' . $this->getMappingOf($digit);
         }
 
         return $word;
     }
 
     /**
-     * @param $unitWord
-     *
-     * @return string
-     */
-    protected function getUnitBy($unitWord)
-    {
-        return ' ' . $unitWord . ' ';
-    }
-
-    /**
      * @param $number
      *
-     * @return mixed
+     * @return array
      */
-    protected function getMappingOf($number)
+    protected function convertFloatToDigitArray($number)
     {
+        $string = number_format($number, 2, '.', '');
+        $decimalString = substr($string, strrpos($string, '.') + 1);
+        $decimalArray = str_split($decimalString);
 
-        if (!is_numeric($number) || $number < 0 || $number > 9) {
-            throw new \InvalidArgumentException('not an integer between 0 and 9.');
-        }
-
-        return $this->mapping[floor($number)];
+        return $decimalArray;
     }
 
     /**
@@ -143,5 +130,29 @@ class NumbersInWords
         }
 
         return $words;
+    }
+
+    /**
+     * @param $unitWord
+     *
+     * @return string
+     */
+    protected function getUnitBy($unitWord)
+    {
+        return ' ' . $unitWord . ' ';
+    }
+
+    /**
+     * @param $number
+     *
+     * @return mixed
+     */
+    protected function getMappingOf($number)
+    {
+        if (!is_numeric($number) || $number < 0 || $number > 9) {
+            throw new \InvalidArgumentException('not an integer between 0 and 9.');
+        }
+
+        return $this->mapping[(int) floor($number)];
     }
 }
