@@ -16,6 +16,14 @@ done
         - 4 book, 80%
         - 5 book, 75%
     try to find out the best purchase strategy in different situations
+- Numbers in Words
+    - convert positive numbers into string, like
+        - 0.63: ling dian liu san
+        - 23.2: er shi san dian er
+        - 14: shi si
+        - 43: si shi san
+        - 398: san bai jiu shi ba
+        - 1111 yi qian yi bai yi shi yi
 
 
 todo
