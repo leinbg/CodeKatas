@@ -48,4 +48,10 @@ class NumbersInWordsSpec extends ObjectBehavior
         $this->convert(1.23)->shouldBe('yi dian er san');
         $this->convert(23.01)->shouldBe('er shi san dian ling yi');
     }
+
+    public function it_converts_float_less_than_1()
+    {
+        $this->convert(0.02)->shouldBe('ling dian ling er');
+        $this->convert(0.70)->shouldBe('ling dian qi ling');
+    }
 }
