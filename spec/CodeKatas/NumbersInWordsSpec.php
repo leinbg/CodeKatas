@@ -42,4 +42,10 @@ class NumbersInWordsSpec extends ObjectBehavior
         $this->convert(1111)->shouldBe('yi qian yi bai yi shi yi');
         $this->convert(3456)->shouldBe('san qian si bai wu shi liu');
     }
+
+    function it_converts_float_more_than_1()
+    {
+        $this->convert(1.23)->shouldBe('yi dian er san');
+        $this->convert(23.01)->shouldBe('er shi san dian ling yi');
+    }
 }

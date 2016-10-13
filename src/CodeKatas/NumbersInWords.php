@@ -39,6 +39,10 @@ class NumbersInWords
 
         $aRest = $this->iterateIntegerPart($number);
         $words = $aRest['words'];
+        $number = $aRest['number'];
+        if ($number != 0) {
+            $words .= $this->iterateDecimalPart($number);
+        }
         $words = $this->applySpecialRules($words);
 
         return $words;
@@ -70,9 +74,18 @@ class NumbersInWords
         ];
     }
 
-    protected function iterateDecimalPart()
+    protected function iterateDecimalPart($number)
     {
+        $word = ' dian';
+        $string = number_format($number, 2, '.', '');
+        $decimalString = substr($string, strrpos($string, '.') + 1);
+        $decimalArray = str_split($decimalString);
 
+        foreach ($decimalArray as $digit) {
+            $word .= ' ' . $this->mapping[$digit];
+        }
+
+        return $word;
     }
 
     /**
@@ -92,11 +105,12 @@ class NumbersInWords
      */
     protected function getMappingOf($number)
     {
-        if (is_int($number) == false || $number < 0 || $number > 9) {
+
+        if (!is_numeric($number) || $number < 0 || $number > 9) {
             throw new \InvalidArgumentException('not an integer between 0 and 9.');
         }
 
-        return $this->mapping[$number];
+        return $this->mapping[floor($number)];
     }
 
     /**
