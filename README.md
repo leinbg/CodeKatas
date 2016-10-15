@@ -21,6 +21,8 @@ List
 	try to find out the best purchase strategy in different situations
 - Numbers in Words
     - convert positive numbers(integer, float) into string
+- DictionaryReplacer
+    - replace string using dictionary 
 
 todo
 -----
