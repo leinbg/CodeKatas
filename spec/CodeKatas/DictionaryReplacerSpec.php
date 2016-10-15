@@ -18,6 +18,7 @@ class DictionaryReplacerSpec extends ObjectBehavior
     {
         $dict = [
             'dummy' => 'foo',
+            'poo' => 'bar',
         ];
         $this->beConstructedWith($dict);
     }
@@ -39,5 +40,12 @@ class DictionaryReplacerSpec extends ObjectBehavior
         $testString = '*dummy*, *dummy*';
 
         $this->replace($testString)->shouldBe('foo, foo');
+    }
+
+    public function it_replace_different_words()
+    {
+        $testString = '*dummy*, *poo*';
+
+        $this->replace($testString)->shouldBe('foo, bar');
     }
 }
