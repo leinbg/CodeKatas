@@ -33,4 +33,11 @@ class DictionaryReplacerSpec extends ObjectBehavior
 
         $this->replace($testString)->shouldBe('foo');
     }
+
+    public function it_replace_repeated()
+    {
+        $testString = '*dummy*, *dummy*';
+
+        $this->replace($testString)->shouldBe('foo, foo');
+    }
 }

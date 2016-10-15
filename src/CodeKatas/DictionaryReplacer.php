@@ -22,7 +22,7 @@ class DictionaryReplacer
      */
     public function __construct($dict)
     {
-        $this->dict =$dict;
+        $this->dict = $dict;
     }
 
     /**
@@ -36,9 +36,9 @@ class DictionaryReplacer
             throw new \InvalidArgumentException('dictionary provided invalid');
         }
 
-        foreach ($this->dict as $key => $item) {
-            $pattern = '/\*(' . $key . ')\*/';
-            $string = preg_replace($pattern, $string, $item);
+        foreach ($this->dict as $key => $replacement) {
+            $pattern = '*' . $key . '*';
+            $string = str_replace($pattern, $replacement, $string);
         }
 
         return $string;
