@@ -27,9 +27,9 @@ class DictionaryReplacerSpec extends ObjectBehavior
         $this->shouldHaveType(DictionaryReplacer::class);
     }
 
-    public function it_replace_word_in_string()
+    public function it_replace_single_word_in_string()
     {
-        $testString = '$dummy$';
+        $testString = '*dummy*';
 
         $this->replace($testString)->shouldBe('foo');
     }
