@@ -53,4 +53,12 @@ class FileLogger
     {
         $this->logFile = $logFile;
     }
+
+    /**
+     * @return bool
+     */
+    public function hasLogFile()
+    {
+        return file_exists($this->logFile);
+    }
 }

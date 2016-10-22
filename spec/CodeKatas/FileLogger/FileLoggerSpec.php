@@ -46,4 +46,20 @@ class FileLoggerSpec extends ObjectBehavior
         $this->log('abc');
         $this->read()->shouldEndWith('abc' . PHP_EOL);
     }
+
+    public function it_create_the_log_file_if_not_exist()
+    {
+        $this->hasLogFile()->shouldBe(false);
+        $this->log('abc');
+        $this->hasLogFile()->shouldBe(true);
+    }
+
+    public function it_append_to_the_log_file_if_exist()
+    {
+        $logFile = vfsStream::newFile("mylog.txt");
+        $this->workDir->addChild($logFile);
+        $this->hasLogFile()->shouldBe(true);
+        $this->log('abc');
+        $this->read()->shouldEndWith('abc' . PHP_EOL);
+    }
 }
