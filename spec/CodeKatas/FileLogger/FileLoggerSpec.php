@@ -27,7 +27,7 @@ class FileLoggerSpec extends ObjectBehavior
     function let()
     {
         $this->workDir = vfsStream::setup('myrootdir');
-        $this->setLogFile(vfsStream::url("myrootdir/mylog.txt"));
+        $this->setLogFile(vfsStream::url("myrootdir/log_20161023.txt"));
     }
 
     /**
@@ -56,7 +56,7 @@ class FileLoggerSpec extends ObjectBehavior
 
     public function it_append_to_the_log_file_if_exist()
     {
-        $logFile = vfsStream::newFile("mylog.txt");
+        $logFile = vfsStream::newFile("log_20161023.txt");
         $this->workDir->addChild($logFile);
         $this->hasLogFile()->shouldBe(true);
         $this->log('abc');

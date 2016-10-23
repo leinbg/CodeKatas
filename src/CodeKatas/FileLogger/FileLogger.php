@@ -18,7 +18,7 @@ class FileLogger
     /**
      * @var string
      */
-    protected $logFile = __DIR__ . '/logs/log.txt';
+    protected $logFile;
 
     /**
      * @param $str
@@ -27,7 +27,7 @@ class FileLogger
     {
         $logData = $str . PHP_EOL;
 
-        file_put_contents($this->logFile, $logData, FILE_APPEND);
+        file_put_contents($this->getLogFile(), $logData, FILE_APPEND);
     }
 
     /**
@@ -43,6 +43,10 @@ class FileLogger
      */
     public function getLogFile()
     {
+        if (!$this->logFile) {
+            $this->logFile = __DIR__ . '/logs/log_' . date('Ymd') . '.txt';
+        }
+
         return $this->logFile;
     }
 
@@ -59,6 +63,6 @@ class FileLogger
      */
     public function hasLogFile()
     {
-        return file_exists($this->logFile);
+        return file_exists($this->getLogFile());
     }
 }
