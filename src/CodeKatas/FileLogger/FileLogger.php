@@ -59,10 +59,16 @@ class FileLogger
     }
 
     /**
+     * @param string $file log file path
+     *
      * @return bool
      */
-    public function hasLogFile()
+    public function hasLogFile($file = null)
     {
-        return file_exists($this->getLogFile());
+        if (!$file) {
+            $file = $this->getLogFile();
+        }
+
+        return file_exists($file);
     }
 }

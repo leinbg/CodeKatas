@@ -27,7 +27,6 @@ class FileLoggerSpec extends ObjectBehavior
     function let()
     {
         $this->workDir = vfsStream::setup('myrootdir');
-        $this->setLogFile(vfsStream::url("myrootdir/log_20161023.txt"));
     }
 
     /**
@@ -43,12 +42,14 @@ class FileLoggerSpec extends ObjectBehavior
      */
     public function it_log_string_in_a_file()
     {
+        $this->setLogFile(vfsStream::url("myrootdir/log_20161023.txt"));
         $this->log('abc');
         $this->read()->shouldEndWith('abc' . PHP_EOL);
     }
 
     public function it_create_the_log_file_if_not_exist()
     {
+        $this->setLogFile(vfsStream::url("myrootdir/log_20161023.txt"));
         $this->hasLogFile()->shouldBe(false);
         $this->log('abc');
         $this->hasLogFile()->shouldBe(true);
@@ -56,10 +57,19 @@ class FileLoggerSpec extends ObjectBehavior
 
     public function it_append_to_the_log_file_if_exist()
     {
+        $this->setLogFile(vfsStream::url("myrootdir/log_20161023.txt"));
         $logFile = vfsStream::newFile("log_20161023.txt");
         $this->workDir->addChild($logFile);
         $this->hasLogFile()->shouldBe(true);
         $this->log('abc');
         $this->read()->shouldEndWith('abc' . PHP_EOL);
+    }
+
+    public function it_create_log_file_in_certain_format()
+    {
+        $url = "myrootdir/log_" . date("Ymd") . ".txt";
+        $this->setLogFile(vfsStream::url($url));
+        $this->log('abc');
+        $this->hasLogFile(vfsStream::url($url))->shouldBe(true);
     }
 }
