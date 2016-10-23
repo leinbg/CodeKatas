@@ -45,7 +45,7 @@ class FileLoggerSpec extends ObjectBehavior
     /**
      *
      */
-    public function it_log_string_in_a_file()
+    public function it_log_string_to_a_file()
     {
         $this->setTestLogFile();
 
@@ -56,7 +56,7 @@ class FileLoggerSpec extends ObjectBehavior
     /**
      *
      */
-    public function it_create_the_log_file_if_not_exist()
+    public function it_create_a_new_log_file_if_not_exist()
     {
         $this->setTestLogFile();
 
@@ -81,15 +81,6 @@ class FileLoggerSpec extends ObjectBehavior
     /**
      *
      */
-    public function it_checks_if_it_is_weekend()
-    {
-        $this->isWeekend(date('20161021'))->shouldBe(false); // Friday
-        $this->isWeekend(date('20161022'))->shouldBe(true); // Saturday
-    }
-
-    /**
-     *
-     */
     public function it_create_log_file_contains_date_info_in_file_name()
     {
         $url = $this->getTestLogFileUrlOnWorkDay();
@@ -101,12 +92,21 @@ class FileLoggerSpec extends ObjectBehavior
     /**
      *
      */
-    public function it_log_to_weekend_log_file_on_weekends()
+    public function it_create_log_file_contains_weekend_in_file_name()
     {
         $url = $this->getTestLogFileUrlOnWeekend();
 
         $this->log('abc');
         $this->hasLogFile(vfsStream::url($url))->shouldBe(true);
+    }
+
+    /**
+     *
+     */
+    public function it_checks_if_it_is_weekend()
+    {
+        $this->isWeekend(date('20161021'))->shouldBe(false); // Friday
+        $this->isWeekend(date('20161022'))->shouldBe(true); // Saturday
     }
 
     /**
