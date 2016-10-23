@@ -53,6 +53,9 @@ class FileLoggerSpec extends ObjectBehavior
         $this->read()->shouldEndWith('abc' . PHP_EOL);
     }
 
+    /**
+     *
+     */
     public function it_create_the_log_file_if_not_exist()
     {
         $this->setTestLogFile();
@@ -62,6 +65,9 @@ class FileLoggerSpec extends ObjectBehavior
         $this->hasLogFile()->shouldBe(true);
     }
 
+    /**
+     *
+     */
     public function it_append_to_the_log_file_if_exist()
     {
         $this->setTestLogFile();
@@ -72,12 +78,18 @@ class FileLoggerSpec extends ObjectBehavior
         $this->read()->shouldEndWith('abc' . PHP_EOL);
     }
 
+    /**
+     *
+     */
     public function it_checks_if_it_is_weekend()
     {
         $this->isWeekend(date('20161021'))->shouldBe(false); // Friday
         $this->isWeekend(date('20161022'))->shouldBe(true); // Saturday
     }
 
+    /**
+     *
+     */
     public function it_create_log_file_contains_date_info_in_file_name()
     {
         $url = $this->getTestLogFileUrlOnWorkDay();
@@ -86,6 +98,9 @@ class FileLoggerSpec extends ObjectBehavior
         $this->hasLogFile(vfsStream::url($url))->shouldBe(true);
     }
 
+    /**
+     *
+     */
     public function it_log_to_weekend_log_file_on_weekends()
     {
         $url = $this->getTestLogFileUrlOnWeekend();
