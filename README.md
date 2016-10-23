@@ -22,7 +22,12 @@ List
 - Numbers in Words
     - convert positive numbers(integer, float) into string
 - DictionaryReplacer
-    - replace string using dictionary 
+    - replace string using dictionary
+- File Logger
+    1. FileLogger::log(string message) and the message should be appended to the end of the log file. 
+    2. If the file doesn't exist, create it. If it does exist, use it and append to it.
+    3. change log file to log_YYYYMMDD.txt, where YYYYMMDD corresponds to the current date.
+    4. log to "log_weekend.txt" on Saturday or Sunday.    
 
 todo
 -----
