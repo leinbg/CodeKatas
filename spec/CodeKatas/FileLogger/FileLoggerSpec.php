@@ -81,6 +81,12 @@ class FileLoggerSpec extends ObjectBehavior
         $this->hasLogFile(vfsStream::url($url))->shouldBe(true);
     }
 
+    public function it_checks_if_it_is_weekend()
+    {
+        $this->isWeekend('2016-10-21')->shouldBe(false); // Friday
+        $this->isWeekend('2016-10-22')->shouldBe(true); // Saturday
+    }
+
     /**
      * helper function to set test log dir in vfsStream
      */

@@ -93,4 +93,14 @@ class FileLogger
     {
         $this->logDir = $logDir;
     }
+
+    /**
+     * @param string $date
+     *
+     * @return bool
+     */
+    public function isWeekend($date)
+    {
+        return date('N', strtotime($date)) >= 6;
+    }
 }
