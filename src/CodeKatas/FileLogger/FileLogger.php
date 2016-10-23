@@ -22,6 +22,8 @@ class FileLogger
 
     protected $logDir;
 
+    protected $logDate;
+
     /**
      * @param $str
      */
@@ -41,12 +43,22 @@ class FileLogger
     }
 
     /**
+     * @param string $date
+     *
+     * @return bool
+     */
+    public function isWeekend($date)
+    {
+        return date('N', strtotime($date)) >= 6;
+    }
+
+    /**
      * @return string
      */
     public function getLogFile()
     {
         if (!$this->logFile) {
-            $this->logFile = $this->getLogDir() . 'log_' . date('Ymd') . '.txt';
+            $this->logFile = $this->getLogDir() . 'log_' . $this->getLogDate() . '.txt';
         }
 
         return $this->logFile;
@@ -95,12 +107,22 @@ class FileLogger
     }
 
     /**
-     * @param string $date
-     *
-     * @return bool
+     * @return mixed
      */
-    public function isWeekend($date)
+    public function getLogDate()
     {
-        return date('N', strtotime($date)) >= 6;
+        if (!$this->logDate) {
+            $this->logDate = date('Ymd');
+        }
+
+        return $this->logDate;
+    }
+
+    /**
+     * @param mixed $logDate
+     */
+    public function setLogDate($logDate)
+    {
+        $this->logDate = $logDate;
     }
 }

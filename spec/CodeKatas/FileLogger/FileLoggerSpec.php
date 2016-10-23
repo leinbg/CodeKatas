@@ -83,8 +83,8 @@ class FileLoggerSpec extends ObjectBehavior
 
     public function it_checks_if_it_is_weekend()
     {
-        $this->isWeekend('2016-10-21')->shouldBe(false); // Friday
-        $this->isWeekend('2016-10-22')->shouldBe(true); // Saturday
+        $this->isWeekend(date('20161021'))->shouldBe(false); // Friday
+        $this->isWeekend(date('20161022'))->shouldBe(true); // Saturday
     }
 
     /**
