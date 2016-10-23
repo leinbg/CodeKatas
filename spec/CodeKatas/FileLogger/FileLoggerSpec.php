@@ -22,11 +22,16 @@ class FileLoggerSpec extends ObjectBehavior
     private $workDir;
 
     /**
+     * @var string
+     */
+    private $workDirPath = 'myrootdir/';
+
+    /**
      *
      */
-    function let()
+    public function let()
     {
-        $this->workDir = vfsStream::setup('myrootdir');
+        $this->workDir = vfsStream::setup($this->workDirPath);
     }
 
     /**
@@ -42,14 +47,16 @@ class FileLoggerSpec extends ObjectBehavior
      */
     public function it_log_string_in_a_file()
     {
-        $this->setLogFile(vfsStream::url("myrootdir/log_20161023.txt"));
+        $this->setTestLogFile();
+
         $this->log('abc');
         $this->read()->shouldEndWith('abc' . PHP_EOL);
     }
 
     public function it_create_the_log_file_if_not_exist()
     {
-        $this->setLogFile(vfsStream::url("myrootdir/log_20161023.txt"));
+        $this->setTestLogFile();
+
         $this->hasLogFile()->shouldBe(false);
         $this->log('abc');
         $this->hasLogFile()->shouldBe(true);
@@ -57,9 +64,9 @@ class FileLoggerSpec extends ObjectBehavior
 
     public function it_append_to_the_log_file_if_exist()
     {
-        $this->setLogFile(vfsStream::url("myrootdir/log_20161023.txt"));
-        $logFile = vfsStream::newFile("log_20161023.txt");
-        $this->workDir->addChild($logFile);
+        $this->setTestLogFile();
+        $this->createTestLogFile();
+
         $this->hasLogFile()->shouldBe(true);
         $this->log('abc');
         $this->read()->shouldEndWith('abc' . PHP_EOL);
@@ -67,10 +74,37 @@ class FileLoggerSpec extends ObjectBehavior
 
     public function it_create_log_file_in_certain_format()
     {
-        $logDir = "myrootdir/";
-        $url = "myrootdir/log_" . date("Ymd") . ".txt";
-        $this->setLogDir(vfsStream::url($logDir));
+        $this->setTestLogDir();
+        $url = $this->workDirPath . "log_" . date("Ymd") . ".txt";
+
         $this->log('abc');
         $this->hasLogFile(vfsStream::url($url))->shouldBe(true);
+    }
+
+    /**
+     * helper function to set test log dir in vfsStream
+     */
+    protected function setTestLogDir()
+    {
+        $logDir = $this->workDirPath;
+        $this->setLogDir(vfsStream::url($logDir));
+    }
+
+    /**
+     * helper function to set test log file in vfsStream
+     */
+    protected function setTestLogFile()
+    {
+        $logFile = $this->workDirPath . 'log_test.txt';
+        $this->setLogFile(vfsStream::url($logFile));
+    }
+
+    /**
+     * helper function to create test log file in vfsStream
+     */
+    protected function createTestLogFile()
+    {
+        $logFile = vfsStream::newFile("log_test.txt");
+        $this->workDir->addChild($logFile);
     }
 }
