@@ -67,8 +67,9 @@ class FileLoggerSpec extends ObjectBehavior
 
     public function it_create_log_file_in_certain_format()
     {
+        $logDir = "myrootdir/";
         $url = "myrootdir/log_" . date("Ymd") . ".txt";
-        $this->setLogFile(vfsStream::url($url));
+        $this->setLogDir(vfsStream::url($logDir));
         $this->log('abc');
         $this->hasLogFile(vfsStream::url($url))->shouldBe(true);
     }

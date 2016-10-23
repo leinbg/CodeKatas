@@ -20,6 +20,8 @@ class FileLogger
      */
     protected $logFile;
 
+    protected $logDir;
+
     /**
      * @param $str
      */
@@ -44,7 +46,7 @@ class FileLogger
     public function getLogFile()
     {
         if (!$this->logFile) {
-            $this->logFile = __DIR__ . '/logs/log_' . date('Ymd') . '.txt';
+            $this->logFile = $this->getLogDir() . 'log_' . date('Ymd') . '.txt';
         }
 
         return $this->logFile;
@@ -70,5 +72,25 @@ class FileLogger
         }
 
         return file_exists($file);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLogDir()
+    {
+        if (!$this->logDir) {
+            $this->logDir = __DIR__ . '/log/';
+        }
+
+        return $this->logDir;
+    }
+
+    /**
+     * @param mixed $logDir
+     */
+    public function setLogDir($logDir)
+    {
+        $this->logDir = $logDir;
     }
 }
