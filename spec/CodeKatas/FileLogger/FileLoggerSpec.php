@@ -74,8 +74,10 @@ class FileLoggerSpec extends ObjectBehavior
 
     public function it_create_log_file_in_certain_format()
     {
+        $logDate = '20161021'; //Friday
+        $this->setTestLogDate($logDate);
         $this->setTestLogDir();
-        $url = $this->workDirPath . "log_" . date("Ymd") . ".txt";
+        $url = $this->workDirPath . "log_" . $logDate . ".txt";
 
         $this->log('abc');
         $this->hasLogFile(vfsStream::url($url))->shouldBe(true);
@@ -85,6 +87,17 @@ class FileLoggerSpec extends ObjectBehavior
     {
         $this->isWeekend(date('20161021'))->shouldBe(false); // Friday
         $this->isWeekend(date('20161022'))->shouldBe(true); // Saturday
+    }
+
+    public function it_log_to_weekend_log_file_on_weekends()
+    {
+        $logDate = '20161022'; //Saturday
+        $this->setTestLogDate($logDate);
+        $this->setTestLogDir();
+        $url = $this->workDirPath . "log_weekend.txt";
+
+        $this->log('abc');
+        $this->hasLogFile(vfsStream::url($url))->shouldBe(true);
     }
 
     /**
@@ -103,6 +116,16 @@ class FileLoggerSpec extends ObjectBehavior
     {
         $logFile = $this->workDirPath . 'log_test.txt';
         $this->setLogFile(vfsStream::url($logFile));
+    }
+
+    /**
+     * @param string $logDate
+     *
+     * helper function to set test log date
+     */
+    protected function setTestLogDate($logDate)
+    {
+        $this->setLogDate($logDate);
     }
 
     /**

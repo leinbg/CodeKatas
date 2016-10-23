@@ -7,11 +7,6 @@ namespace CodeKatas\FileLogger;
  *
  * @package CodeKatas\FileLogger
  */
-/**
- * Class FileLogger
- *
- * @package CodeKatas\FileLogger
- */
 class FileLogger
 {
 
@@ -20,8 +15,14 @@ class FileLogger
      */
     protected $logFile;
 
+    /**
+     * @var string
+     */
     protected $logDir;
 
+    /**
+     * @var string
+     */
     protected $logDate;
 
     /**
@@ -113,6 +114,10 @@ class FileLogger
     {
         if (!$this->logDate) {
             $this->logDate = date('Ymd');
+        }
+
+        if ($this->isWeekend($this->logDate)) {
+            $this->logDate = 'weekend';
         }
 
         return $this->logDate;
