@@ -72,32 +72,52 @@ class FileLoggerSpec extends ObjectBehavior
         $this->read()->shouldEndWith('abc' . PHP_EOL);
     }
 
-    public function it_create_log_file_in_certain_format()
-    {
-        $logDate = '20161021'; //Friday
-        $this->setTestLogDate($logDate);
-        $this->setTestLogDir();
-        $url = $this->workDirPath . "log_" . $logDate . ".txt";
-
-        $this->log('abc');
-        $this->hasLogFile(vfsStream::url($url))->shouldBe(true);
-    }
-
     public function it_checks_if_it_is_weekend()
     {
         $this->isWeekend(date('20161021'))->shouldBe(false); // Friday
         $this->isWeekend(date('20161022'))->shouldBe(true); // Saturday
     }
 
+    public function it_create_log_file_contains_date_info_in_file_name()
+    {
+        $url = $this->getTestLogFileUrlOnWorkDay();
+
+        $this->log('abc');
+        $this->hasLogFile(vfsStream::url($url))->shouldBe(true);
+    }
+
     public function it_log_to_weekend_log_file_on_weekends()
+    {
+        $url = $this->getTestLogFileUrlOnWeekend();
+
+        $this->log('abc');
+        $this->hasLogFile(vfsStream::url($url))->shouldBe(true);
+    }
+
+    /**
+     * @return string
+     */
+    protected function getTestLogFileUrlOnWorkDay()
+    {
+        $logDate = '20161021'; //Friday
+        $this->setTestLogDate($logDate);
+        $this->setTestLogDir();
+        $url = $this->workDirPath . "log_" . $logDate . ".txt";
+
+        return $url;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getTestLogFileUrlOnWeekend()
     {
         $logDate = '20161022'; //Saturday
         $this->setTestLogDate($logDate);
         $this->setTestLogDir();
         $url = $this->workDirPath . "log_weekend.txt";
 
-        $this->log('abc');
-        $this->hasLogFile(vfsStream::url($url))->shouldBe(true);
+        return $url;
     }
 
     /**
