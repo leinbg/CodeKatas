@@ -24,8 +24,10 @@ class PrimeFactors
         $candidate = 2;
 
         while ($candidate <= $int) {
-            if ($int % $candidate == 0) {
-                $factors[] = $candidate;
+            while ($int % $candidate == 0) {
+                if (!in_array($candidate, $factors, true)) {
+                    $factors[] = $candidate;
+                }
                 $int /= $candidate;
             }
             $candidate++;
