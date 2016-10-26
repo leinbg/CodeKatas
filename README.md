@@ -27,7 +27,10 @@ List
     1. FileLogger::log(string message) and the message should be appended to the end of the log file. 
     2. If the file doesn't exist, create it. If it does exist, use it and append to it.
     3. change log file to log_YYYYMMDD.txt, where YYYYMMDD corresponds to the current date.
-    4. log to "log_weekend.txt" on Saturday or Sunday.    
+    4. log to "log_weekend.txt" on Saturday or Sunday.
+- Prime factor
+    - 10 = 2 * 5, 2 and 5 are the prime factors of 10
+    - 60 = 2 * 2 * 3 * 5 and 2, 3, 5 are the prime factors of 60
 
 todo
 -----
