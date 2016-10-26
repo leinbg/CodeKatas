@@ -43,4 +43,9 @@ class PrimeFactorsSpec extends ObjectBehavior
     {
         $this->getFactors(494)->shouldBe([2,13,19]);
     }
+
+    public function it_get_factors_of_16()
+    {
+        $this->getFactors(16)->shouldBe([2]);
+    }
 }
