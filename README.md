@@ -31,7 +31,7 @@ List
 - Prime factor
     - 10 = 2 * 5, 2 and 5 are the prime factors of 10
     - 60 = 2 * 2 * 3 * 5 and 2, 3, 5 are the prime factors of 60
-- Bowling
+- Bowling Game
     - gutter ball => 0
     - default 
         - 1 frame = 2 rolls
@@ -45,4 +45,3 @@ List
 todo
 -----
 - RegexGeneratorApi
-- Bowling
